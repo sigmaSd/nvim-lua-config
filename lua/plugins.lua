@@ -14,8 +14,7 @@ require('packer').startup(function(use)
     use { "ellisonleao/gruvbox.nvim" }
     use {
         "windwp/nvim-autopairs",
-        --     config = function() require("nvim-autopairs").setup {} end
-        --     config is done inside coc to synchronize with it
+        config = function() require("nvim-autopairs").setup {} end
     }
     use {
         'nvim-lualine/lualine.nvim',
@@ -28,8 +27,14 @@ require('packer').startup(function(use)
         },
         tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
+    use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
+    use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+    use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
+    use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
+    use 'L3MON4D3/LuaSnip' -- Snippets plugin
+    use "rafamadriz/friendly-snippets"
+
     -- these next plugins are *not* written in lua
-    use { 'neoclide/coc.nvim', branch = 'release' }
     use 'github/copilot.vim'
     use 'vim-denops/denops.vim'
     use 'sigmaSd/irust-vim-plugin'
@@ -52,13 +57,9 @@ keymap("n", "<leader>n", ":NvimTreeFocus<CR>", opts)
 -- irust
 require("plugins/irust")
 -- lualine
-require("lualine").setup({
-    sections = {
-        lualine_c = { 'coc#status', 'b:coc_current_function' }
-    }
-})
+require("lualine").setup({})
 -- coc
-require("plugins/coc")
+--require("plugins/coc")
 -- telescope
 require("plugins/telescope_config")
 -- gruvbox
@@ -69,3 +70,5 @@ vim.cmd("colorscheme gruvbox")
 -- runner
 keymap("n", "<C-x>", ":RunFile run<CR>", opts)
 keymap("n", "<C-a>", ":RunFile repl<CR>", opts)
+-- lsp
+require("plugins/lsp")

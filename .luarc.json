@@ -1,9 +1,8 @@
 {
     "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
     "Lua.diagnostics.globals": [
-        "packer_bootstrap",
         "vim",
+        "packer_bootstrap",
         "packer_bontstrap"
-    ],
-    "Lua.workspace.checkThirdParty": false
+    ]
 }
