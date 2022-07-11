@@ -51,6 +51,8 @@ local opts = { noremap = true, silent = true }
 
 -- copilot
 vim.g.copilot_node_command = "~/dev/node/bin/node16"
+vim.g.copilot_no_tab_map = true
+keymap("i", "<Plug>(vimrc:copilot-dummy-map)", 'copilot#Accept("<Tab>")', { expr = true })
 -- nvim-tree
 require("nvim-tree").setup()
 keymap("n", "<leader>n", ":NvimTreeFocus<CR>", opts)
@@ -58,8 +60,6 @@ keymap("n", "<leader>n", ":NvimTreeFocus<CR>", opts)
 require("plugins/irust")
 -- lualine
 require("lualine").setup({})
--- coc
---require("plugins/coc")
 -- telescope
 require("plugins/telescope_config")
 -- gruvbox
