@@ -33,6 +33,10 @@ require('packer').startup(function(use)
     use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
     use 'L3MON4D3/LuaSnip' -- Snippets plugin
     use "rafamadriz/friendly-snippets"
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+    }
 
     -- these next plugins are *not* written in lua
     use 'github/copilot.vim'
@@ -72,3 +76,10 @@ keymap("n", "<C-x>", ":RunFile run<CR>", opts)
 keymap("n", "<C-a>", ":RunFile repl<CR>", opts)
 -- lsp
 require("plugins/lsp")
+-- treesitter
+require'nvim-treesitter.configs'.setup {
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false
+    },
+}

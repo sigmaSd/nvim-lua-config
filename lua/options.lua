@@ -19,6 +19,7 @@ local options = {
     spell = true,
     guifont = "Cascadia Code",
     undofile = true,
+    signcolumn = "no",
 }
 
 for k, v in pairs(options) do
@@ -28,8 +29,8 @@ end
 vim.opt.path = vim.opt.path + "**"
 
 -- more options
-vim.cmd("filetype plugin indent on")
-vim.cmd("syntax on")
+vim.cmd("syntax off")
+
 
 -- start terminal in insert mode
 vim.cmd("autocmd BufWinEnter,WinEnter term://* startinsert")
