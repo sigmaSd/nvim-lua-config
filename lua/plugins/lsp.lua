@@ -26,7 +26,9 @@ cmp.setup {
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
             else
-                fallback()
+                vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true))
+                    , 'n', true)
+                --   fallback()
             end
         end, { 'i', 's' }),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
@@ -43,8 +45,8 @@ cmp.setup {
                 'n', true)
         end)
     }),
-     experimental = {
-      ghost_text = false -- this feature conflict with copilot.vim's preview.
+    experimental = {
+        ghost_text = false -- this feature conflict with copilot.vim's preview.
     },
     sources = {
         { name = 'nvim_lsp' },
