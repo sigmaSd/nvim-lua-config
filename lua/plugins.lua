@@ -37,6 +37,12 @@ require('packer').startup(function(use)
         'nvim-treesitter/nvim-treesitter',
         run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
     }
+    use {
+        'lewis6991/spellsitter.nvim',
+        config = function()
+            require('spellsitter').setup()
+        end
+    }
 
     -- these next plugins are *not* written in lua
     use 'github/copilot.vim'
@@ -76,8 +82,8 @@ keymap("n", "<C-x>", ":RunFile run<CR>", opts)
 keymap("n", "<C-a>", ":RunFile repl<CR>", opts)
 -- lsp
 require("plugins/lsp")
--- treesitter
-require'nvim-treesitter.configs'.setup {
+-- tree-sitter
+require 'nvim-treesitter.configs'.setup {
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = false
