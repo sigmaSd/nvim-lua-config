@@ -101,9 +101,11 @@ for _, lsp in ipairs(servers) do
     }
 end
 lspconfig.denols.setup {
-    single_file_support = true,
     on_attach = on_attach,
     capabilities = capabilities,
+	init_options = {
+		unstable = true,
+	},
 }
 lspconfig.sumneko_lua.setup {
     cmd = { "/home/mrcool/dev/lsp/lua/bin/lua-language-server" },
