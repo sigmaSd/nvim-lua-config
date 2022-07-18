@@ -43,6 +43,7 @@ require('packer').startup(function(use)
             require('spellsitter').setup()
         end
     }
+    use("j-hui/fidget.nvim")
 
     -- these next plugins are *not* written in lua
     use 'github/copilot.vim'
@@ -89,3 +90,5 @@ require 'nvim-treesitter.configs'.setup {
         additional_vim_regex_highlighting = false
     },
 }
+-- fidget (lsp progress)
+require("fidget").setup()
