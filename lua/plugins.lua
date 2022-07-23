@@ -6,6 +6,10 @@ if fn.empty(fn.glob(install_path)) > 0 then
     vim.api.nvim_command('packadd packer.nvim')
 end
 
+require('packer').init({
+    autoremove = true, -- Remove disabled or unused plugins without prompting the user
+})
+
 require('packer').startup(function(use)
     use {
         'nvim-telescope/telescope.nvim',
