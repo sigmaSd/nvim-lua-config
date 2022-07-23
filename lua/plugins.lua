@@ -48,6 +48,7 @@ require('packer').startup(function(use)
         end
     }
     use("j-hui/fidget.nvim")
+    use { 'rafcamlet/nvim-luapad', requires = "antoinemadec/FixCursorHold.nvim" }
 
     -- these next plugins are *not* written in lua
     use 'github/copilot.vim'
