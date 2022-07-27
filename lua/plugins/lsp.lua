@@ -100,22 +100,17 @@ for _, lsp in ipairs(servers) do
         capabilities = capabilities,
     }
 end
-
-local denols_setup = {
+lspconfig.denols.setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    init_options = {
-        unstable = true,
-        suggest = { imports = { hosts = {} } },
-    },
+    settings = {
+        deno = {
+            unstable = true
+        }
+    }
 }
-local deno_land_host = {}
-deno_land_host['https://deno.land'] = true
-denols_setup.init_options.suggest.imports.hosts = deno_land_host
-lspconfig.denols.setup(denols_setup)
-
 lspconfig.sumneko_lua.setup {
-    cmd = { "/home/mrcool/dev/lsp/lua/bin/lua-language-server" },
+    cmd = { "lua-language-server" },
     settings = {
         Lua = {
             runtime = {
