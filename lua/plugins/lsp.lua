@@ -105,7 +105,8 @@ lspconfig.denols.setup {
     capabilities = capabilities,
     settings = {
         deno = {
-            unstable = true
+            enable = true,
+            unstable = true,
         }
     }
 }

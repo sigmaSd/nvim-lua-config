@@ -49,6 +49,14 @@ require('packer').startup(function(use)
     }
     use("j-hui/fidget.nvim")
     use { 'rafcamlet/nvim-luapad', requires = "antoinemadec/FixCursorHold.nvim" }
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    }
+    use 'nvim-treesitter/playground'
+    use 'theHamsta/nvim-treesitter-pairs'
 
     -- these next plugins are *not* written in lua
     use 'github/copilot.vim'
@@ -97,3 +105,11 @@ require 'nvim-treesitter.configs'.setup {
 }
 -- fidget (lsp progress)
 require("fidget").setup()
+
+require'nvim-treesitter.configs'.setup {
+  pairs = {
+    enable = true,
+    highlight_pair_events = {"CursorMoved"},
+    highlight_self = true, -- whether to highlight also the part of the pair under cursor (or only the partner)
+     }
+ }

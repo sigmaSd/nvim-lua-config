@@ -20,6 +20,8 @@ local options = {
     guifont = "Cascadia Code",
     undofile = true,
     signcolumn = "no",
+    splitright = true,
+    splitbelow = true,
 }
 
 for k, v in pairs(options) do
