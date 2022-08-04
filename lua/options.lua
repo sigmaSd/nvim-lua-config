@@ -17,9 +17,11 @@ local options = {
     swapfile = false,
     termguicolors = true,
     spell = true,
-    guifont = "Cascadia Code",
+    guifont = "Cascadia Code:h13",
     undofile = true,
     signcolumn = "no",
+    splitright = true,
+    splitbelow = true,
 }
 
 for k, v in pairs(options) do

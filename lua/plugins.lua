@@ -49,9 +49,19 @@ require('packer').startup(function(use)
     }
     use("j-hui/fidget.nvim")
     use { 'rafcamlet/nvim-luapad', requires = "antoinemadec/FixCursorHold.nvim" }
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    }
+    use 'nvim-treesitter/playground'
+    use 'theHamsta/nvim-treesitter-pairs'
+    use 'glepnir/dashboard-nvim'
+
 
     -- these next plugins are *not* written in lua
-    use 'github/copilot.vim'
+    use { 'github/copilot.vim', commit = "c2e75a3a7519c126c6fdb35984976df9ae13f564" }
     use 'vim-denops/denops.vim'
     use 'sigmaSd/irust-vim-plugin'
     use 'sigmaSd/runner'
@@ -70,7 +80,12 @@ vim.g.copilot_node_command = "~/dev/node/bin/node16"
 vim.g.copilot_no_tab_map = true
 keymap("i", "<Plug>(vimrc:copilot-dummy-map)", 'copilot#Accept("<Tab>")', { expr = true })
 -- nvim-tree
-require("nvim-tree").setup()
+require('nvim-tree').setup {
+    update_focused_file = {
+        enable = true,
+        update_cwd = true,
+    }
+}
 keymap("n", "<leader>n", ":NvimTreeFocus<CR>", opts)
 -- irust
 require("plugins/irust")
@@ -84,8 +99,8 @@ require("gruvbox").setup({
 })
 vim.cmd("colorscheme gruvbox")
 -- runner
-keymap("n", "<C-x>", ":RunFile run<CR>", opts)
-keymap("n", "<C-a>", ":RunFile repl<CR>", opts)
+--keymap("n", "<C-x>", ":RunFile run<CR>", opts)
+keymap("n", "<C-a>", ":RunFile run<CR>", opts)
 -- lsp
 require("plugins/lsp")
 -- tree-sitter
@@ -97,3 +112,14 @@ require 'nvim-treesitter.configs'.setup {
 }
 -- fidget (lsp progress)
 require("fidget").setup()
+
+-- treesitter pairs
+require 'nvim-treesitter.configs'.setup {
+    pairs = {
+        enable = true,
+        highlight_pair_events = { "CursorMoved" },
+        highlight_self = true, -- whether to highlight also the part of the pair under cursor (or only the partner)
+    }
+}
+-- dashboard
+require("plugins/dashboard_conf")
