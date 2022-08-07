@@ -61,7 +61,7 @@ function DenoUpdateDep(line)
     end
 
     local new_line, _ = string.gsub(line, module, new_module)
-    return new_line
+    return new_line, new_module
 end
 
 function DenoMarkDeps()
@@ -73,10 +73,10 @@ function DenoMarkDeps()
 
     for i, line in ipairs(content) do
         if line:match('@') then
-            local new_line = DenoUpdateDep(line)
+            local new_line, new_module = DenoUpdateDep(line)
             local mark
             if new_line then
-                mark = "🔺"
+                mark = string.format("🔺%s", new_module)
             else
                 mark = "✨"
             end
@@ -91,7 +91,7 @@ function DenoUpdateAllDeps()
 
     for i, line in ipairs(content) do
         if line:match('@') then
-            local new_line = DenoUpdateDep(line)
+            local new_line, _ = DenoUpdateDep(line)
             if new_line then
                 content[i] = new_line
             end
