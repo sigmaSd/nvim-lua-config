@@ -6,21 +6,6 @@ end
 
 vim.api.nvim_command("command! Messages :lua Messages()")
 
-function PreviewDeno()
-    local job = function(code)
-        local cmd = { "deno", "eval", "--unstable", table.concat(code, "\n") }
-        local opts = {
-            env = {
-                NO_COLOR = true
-            }
-        }
-        return cmd, opts
-    end
-    local pattern = { '*.ts', '*.js' }
-    Preview(job, pattern)
-end
-
-vim.api.nvim_create_user_command("PreviewDeno", ":lua PreviewDeno()", {})
 
 function Preview(job, pattern)
     local code_buf = vim.api.nvim_get_current_buf()

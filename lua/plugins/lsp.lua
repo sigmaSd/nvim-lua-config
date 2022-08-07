@@ -110,6 +110,20 @@ lspconfig.denols.setup {
         }
     }
 }
+vim.lsp.handlers['deno/registryState'] = function(_, result, context)
+    -- https://github.com/denoland/vscode_deno/blob/45d343516ab1250867a5cb254460278f0ceca2a2/client/src/notification_handlers.ts
+    local client = vim.lsp.get_client_by_id(context.client_id)
+    local suggest_imports_config = (client.config.settings.deno.suggest or {}).imports or {}
+    local hosts = suggest_imports_config.hosts or {}
+    hosts[result.origin] = true
+
+    local new = { deno = { suggest = { imports = { hosts = hosts } } } }
+    client.config.settings = vim.tbl_deep_extend('force', client.config.settings, new)
+    client.notify('workspace/didChangeConfiguration', {
+        settings = new,
+    })
+end
+
 lspconfig.sumneko_lua.setup {
     cmd = { "lua-language-server" },
     settings = {
