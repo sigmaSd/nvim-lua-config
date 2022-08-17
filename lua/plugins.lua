@@ -112,17 +112,14 @@ require 'nvim-treesitter.configs'.setup {
         enable = true,
         additional_vim_regex_highlighting = false
     },
-}
--- fidget (lsp progress)
-require("fidget").setup()
-
--- treesitter pairs
-require 'nvim-treesitter.configs'.setup {
     pairs = {
         enable = true,
         highlight_pair_events = { "CursorMoved" },
         highlight_self = true, -- whether to highlight also the part of the pair under cursor (or only the partner)
     }
 }
+-- fidget (lsp progress)
+require("fidget").setup()
+
 -- dashboard
 require("plugins/dashboard_conf")

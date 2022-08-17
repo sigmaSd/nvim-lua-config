@@ -55,4 +55,3 @@ local function LuaTerminalExec(cmd)
 end
 
 vim.keymap.set("n", "<space>t", LuaTerminalToggle)
-vim.keymap.set("t", "<space>t", LuaTerminalToggle)
