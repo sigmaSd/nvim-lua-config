@@ -12,7 +12,7 @@ function PreviewDeno()
     Preview(job, pattern)
 end
 
-function DenoUpdateDep(line)
+local function DenoUpdateDep(line)
     -- if line doesn't resemble an http dependency, return
     if not string.match(line, "https://") then
         return
@@ -33,27 +33,17 @@ function DenoUpdateDep(line)
     end
     module = vim.split(module, '/')[1]
     -- fetch the latest version
-    local latest_url = string.format('https://deno.land/%s/%s', namespace,
-        namespace == "x" and vim.split(module, '@')[1] or "")
+    local latest_url = string.format('https://apiland.deno.dev/v2/modules/%s',
+        namespace == "x" and vim.split(module, '@')[1] or "std")
     local deno_fetch = function(target_url)
         local cmd = string.format([[
-        const url = await fetch("%s", {
-         "headers": {
-            "Accept": "text/html",
-            },
-        }).then(r => r.url)
-        console.log(url)
+        const latest_version = await fetch("%s").then(r=>r.json()).then(r => r.latest_version)
+        console.log(latest_version)
         ]], target_url)
         return vim.fn.system({ "deno", "eval", cmd })
     end
-    local new_url = deno_fetch(latest_url)
-    if not new_url:match('@') then
-        print("could not find latest version")
-        print("new url is: " .. new_url)
-        return
-    end
-    local new_module = string.match(new_url, '/(.+@.+)/?')
-    new_module = namespace == "x" and vim.split(new_module, '/')[4] or vim.split(new_module, '/')[3]
+    local latest_version = deno_fetch(latest_url)
+    local new_module = vim.split(module, '@')[1] .. "@" .. latest_version
     new_module = vim.trim(new_module)
     if new_module == module then
         --print("module is already up to date")
@@ -103,5 +93,4 @@ end
 
 vim.api.nvim_create_user_command("PreviewDeno", ":lua PreviewDeno()", {})
 vim.api.nvim_create_user_command("DenoUpdateDep", ":lua DenoUpdateDep()", {})
-vim.api.nvim_create_user_command("DenoMarkDeps", ":lua DenoMarkDeps()", {})
 vim.api.nvim_create_user_command("DenoUpdateAllDeps", ":lua DenoUpdateAllDeps()", {})
