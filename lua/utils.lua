@@ -1,10 +1,17 @@
-function Messages()
-    local msgs = vim.api.nvim_exec("messages", true)
+function Tabit(cmd)
+    local msgs = vim.api.nvim_exec(cmd, true)
     vim.api.nvim_command("tabe")
     vim.api.nvim_buf_set_lines(0, 0, -1, false, vim.split(msgs, "\n"))
 end
 
-vim.api.nvim_command("command! Messages :lua Messages()")
+function Messages()
+    Tabit("messages")
+end
+
+vim.api.nvim_create_user_command("Tabit", function(table)
+    Tabit(table.args)
+end, { nargs = "*" })
+vim.api.nvim_create_user_command("Messages", Messages, {})
 
 
 function Preview(job, pattern)

@@ -44,11 +44,10 @@ local function LuaTerminalToggle()
 end
 
 ---@diagnostic disable-next-line: unused-local, unused-function
-local function LuaTerminalExec(cmd)
+function LuaTerminalExec(cmd)
     if vim.fn.win_gotoid(lua_terminal_window) == 0 then
         LuaTerminalOpen()
     end
-    vim.fn.jobsend(lua_terminal_job_id, 'clear\n')
     vim.fn.jobsend(lua_terminal_job_id, cmd .. '\n')
     vim.api.nvim_command("normal! G")
     vim.api.nvim_command("wincmd p")

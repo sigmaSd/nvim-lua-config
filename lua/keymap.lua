@@ -1,12 +1,12 @@
 local keymap = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
-vim.g.mapleader = ","
-vim.g.maplocalleader = ","
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- save with ctrl-s
 keymap("i", "<C-s>", "<Esc>:w<CR>", opts)
 keymap("n", "<C-s>", "<Esc>:w<CR>", opts)
-keymap("n", "<C-x>", ":qa<CR>", opts)
+--keymap("n", "<C-x>", ":qa<CR>", opts)
 
 keymap("n", "<space><space>", ":b#<CR>", opts)
 keymap("n", "Y", "yg_", opts)

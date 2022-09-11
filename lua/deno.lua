@@ -94,3 +94,4 @@ end
 vim.api.nvim_create_user_command("PreviewDeno", ":lua PreviewDeno()", {})
 vim.api.nvim_create_user_command("DenoUpdateDep", ":lua DenoUpdateDep()", {})
 vim.api.nvim_create_user_command("DenoUpdateAllDeps", ":lua DenoUpdateAllDeps()", {})
+vim.api.nvim_create_user_command("DenoMarkDeps", ":lua DenoMarkDeps()", {})

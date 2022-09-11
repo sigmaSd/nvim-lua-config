@@ -4,4 +4,11 @@ require("plugins")
 require("luaterm")
 require("utils")
 require("deno")
---vim.lsp.set_log_level("TRACE")
+require("conjure")
+--vim.lsp.set_log_level("DEBUG")
+
+
+-- local sockdir = vim.fn.expand("~/.cache/nvim")
+-- if vim.fn.filereadable(sockdir .. '/server.pipe') == 0 then
+--     vim.fn.serverstart(sockdir .. '/server.pipe');
+-- end

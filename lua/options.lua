@@ -24,6 +24,8 @@ local options = {
     splitbelow = true,
 }
 
+--vim.g.denops_server_addr = "127.0.0.1:32123"
+
 for k, v in pairs(options) do
     vim.opt[k] = v
 end
@@ -31,7 +33,6 @@ end
 vim.opt.path = vim.opt.path + "**"
 
 -- more options
-vim.cmd("syntax off")
 
 
 -- start terminal in insert mode

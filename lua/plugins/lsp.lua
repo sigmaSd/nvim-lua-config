@@ -26,9 +26,7 @@ cmp.setup {
             elseif luasnip.expand_or_jumpable() then
                 luasnip.expand_or_jump()
             else
-                vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true))
-                    , 'n', true)
-                --   fallback()
+                fallback()
             end
         end, { 'i', 's' }),
         ['<S-Tab>'] = cmp.mapping(function(fallback)
@@ -40,18 +38,19 @@ cmp.setup {
                 fallback()
             end
         end, { 'i', 's' }),
-        ['<C-g>'] = cmp.mapping(function()
-            vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)),
-                'n', true)
-        end)
+        -- ['<C-g>'] = cmp.mapping(function()
+        --     vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)),
+        --         'n', true)
+        -- end)
     }),
     experimental = {
-        ghost_text = false -- this feature conflict with copilot.vim's preview.
+        --ghost_text = false -- this feature conflict with copilot.vim's preview.
     },
     sources = {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'buffer' },
+        { name = "neorg" },
     },
 }
 
@@ -95,7 +94,7 @@ capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'rust_analyzer', 'pyright' }
+local servers = { 'rust_analyzer', 'pyright', 'clojure_lsp' }
 for _, lsp in ipairs(servers) do
     lspconfig[lsp].setup {
         on_attach = on_attach,
