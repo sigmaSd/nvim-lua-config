@@ -71,3 +71,12 @@ function ChangeToCurrentFileDir()
 end
 
 vim.api.nvim_create_user_command("ChangeToCurrentFileDir", ":lua ChangeToCurrentFileDir()", {})
+
+function DetachBufferFromClients(bufnr)
+    local clients = vim.lsp.buf_get_clients(bufnr)
+    for client_id, _ in pairs(clients) do
+        vim.lsp.buf_detach_client(bufnr, client_id)
+    end
+end
+
+vim.api.nvim_create_user_command("DetachBufferFromClients", function() DetachBufferFromClients(0) end, {})

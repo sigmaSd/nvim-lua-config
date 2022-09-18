@@ -50,7 +50,8 @@ cmp.setup {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'buffer' },
-        { name = "neorg" },
+        { name = 'path' },
+        { name = 'neorg' },
     },
 }
 
@@ -82,6 +83,12 @@ local on_attach = function(client, bufnr)
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
     vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('n', '<space>l', function()
+        vim.lsp.codelens.refresh()
+    end, bufopts)
+    vim.keymap.set('n', '<space>lr', function()
+        vim.lsp.codelens.run()
+    end, bufopts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
 
@@ -101,29 +108,13 @@ for _, lsp in ipairs(servers) do
         capabilities = capabilities,
     }
 end
-lspconfig.denols.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-        deno = {
-            enable = true,
-            unstable = true,
-        }
-    }
-}
-vim.lsp.handlers['deno/registryState'] = function(_, result, context)
-    -- https://github.com/denoland/vscode_deno/blob/45d343516ab1250867a5cb254460278f0ceca2a2/client/src/notification_handlers.ts
-    local client = vim.lsp.get_client_by_id(context.client_id)
-    local suggest_imports_config = (client.config.settings.deno.suggest or {}).imports or {}
-    local hosts = suggest_imports_config.hosts or {}
-    hosts[result.origin] = true
 
-    local new = { deno = { suggest = { imports = { hosts = hosts } } } }
-    client.config.settings = vim.tbl_deep_extend('force', client.config.settings, new)
-    client.notify('workspace/didChangeConfiguration', {
-        settings = new,
-    })
-end
+require "deno-nvim".setup({
+    server = {
+        on_attach = on_attach,
+        capabilities = capabilities,
+    }
+})
 
 lspconfig.sumneko_lua.setup {
     cmd = { "lua-language-server" },

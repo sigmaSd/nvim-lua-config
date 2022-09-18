@@ -118,11 +118,15 @@ require('packer').startup(function(use)
     })
     use '/home/mrcool/dev/nvim-plugins/inject'
     use { 'CRAG666/code_runner.nvim', requires = 'nvim-lua/plenary.nvim' }
-    use { 'Olical/conjure' }
     use {
-        'sigmaSd/conjure-deno'
-        --'/home/mrcool/dev/nvim-plugins/conjure/deno',
+        'Olical/conjure',
+        branch = 'develop', -- needed for now until next conjure release
     }
+    use {
+        --'sigmaSd/conjure-deno'
+        '/home/mrcool/dev/nvim-plugins/conjure/deno',
+    }
+    use '/home/mrcool/dev/nvim-plugins/nvim-deno/'
 
     -- these next plugins are *not* written in lua
     -- use { 'github/copilot.vim'}
