@@ -13,3 +13,14 @@ vim.g["conjure#filetypes"] = conjure_filetypes
 
 vim.g["conjure#filetype#typescript"] = "deno.deno"
 vim.g["conjure#filetype#javascript"] = "deno.deno"
+--
+-- -- vim.api.nvim_create_autocmd("FileType", {
+-- --     group = vim.api.nvim_create_augroup("conjure_deno", { clear = true }),
+-- --     pattern = { 'typescript', 'javascript' },
+-- --     callback = function()
+-- --         table.insert(vim.g["conjure#filetypes"], "typescript")
+-- --         table.insert(vim.g["conjure#filetypes"], "javascript")
+-- --         vim.g["conjure#filetype#typescript"] = "deno.deno"
+-- --         vim.g["conjure#filetype#javascript"] = "deno.deno"
+-- --     end,
+-- -- })

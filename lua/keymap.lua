@@ -19,6 +19,12 @@ keymap("n", "<C-Down>", "<C-w>j", opts)
 keymap("n", "<space>wv", ":vsplit<CR>", opts)
 keymap("n", "<space>wh", ":vsplit<CR>", opts)
 
+vim.keymap.set("n", "<space>dr", function()
+    vim.lsp.codelens.refresh();
+    vim.lsp.codelens.run()
+end, opts)
+
+
 -- close quicky
 vim.api.nvim_create_autocmd("FileType", {
     group = vim.api.nvim_create_augroup("qfexit", { clear = true }),

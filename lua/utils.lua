@@ -80,3 +80,37 @@ function DetachBufferFromClients(bufnr)
 end
 
 vim.api.nvim_create_user_command("DetachBufferFromClients", function() DetachBufferFromClients(0) end, {})
+
+
+function Pipe(args)
+    local _, line_start = unpack(vim.fn.getpos("'<"))
+    local _, line_end = unpack(vim.fn.getpos("'>"))
+
+    local cmd = args.fargs[1]
+
+    local lines = table.concat(
+        vim.api.nvim_buf_get_lines(0, line_start - 1, line_end, {}),
+        "\n"
+    )
+    vim.pretty_print(lines)
+    vim.fn.jobstart({ cmd, lines }, {
+        on_stdout = function(_, data)
+            if #data == 1 and data[1] == "" then
+            else
+                vim.api.nvim_buf_set_lines(0, line_start - 1, line_end, false, data)
+            end
+        end,
+    })
+end
+
+vim.api.nvim_create_user_command("Pipe", Pipe, {
+    range = true,
+    nargs = "*"
+})
+
+
+---@diagnostic disable-next-line: lowercase-global
+function dbg(...)
+    vim.pretty_print(...)
+    return (...)
+end

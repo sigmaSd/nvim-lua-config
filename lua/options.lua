@@ -22,6 +22,7 @@ local options = {
     signcolumn = "no",
     splitright = true,
     splitbelow = true,
+    scrolloff = 5
 }
 
 --vim.g.denops_server_addr = "127.0.0.1:32123"
